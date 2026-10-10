@@ -33,37 +33,14 @@ export default function Navbar() {
     );
   };
 
-  const handleNavigation = (event, href) => {
-    event.preventDefault();
-    setIsOpen(false);
-
-    const target = document.querySelector(href);
-
-    if (target) {
-      window.history.replaceState(null, "", href);
-
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    } else {
-      console.warn(`Navbar target not found: ${href}`);
-    }
-  };
-
   return (
-    <motion.header
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="fixed inset-x-0 top-0 z-[100] px-3 pt-3 sm:px-6"
-    >
+    <header className="fixed inset-x-0 top-0 z-[100] px-3 pt-3 sm:px-6">
       <nav className="mx-auto max-w-7xl rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-xl sm:px-6">
         <div className="flex items-center justify-between gap-3">
           {/* Logo */}
           <a
             href="#home"
-            onClick={(event) => handleNavigation(event, "#home")}
+            onClick={() => setIsOpen(false)}
             className="flex shrink-0 items-center gap-2.5"
           >
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white">
@@ -86,49 +63,46 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={(event) =>
-                  handleNavigation(event, link.href)
-                }
-                className="text-sm font-semibold text-slate-600 transition-colors hover:text-blue-600"
+                className="py-2 text-sm font-semibold text-slate-600 transition-colors hover:text-blue-600"
               >
                 {link.name}
               </a>
             ))}
           </div>
 
-          {/* Desktop WhatsApp button */}
+          {/* Desktop enquiry */}
           <button
             type="button"
             onClick={openWhatsApp}
-            className="hidden items-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-700 md:flex"
+            className="hidden items-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white hover:bg-blue-700 md:flex"
           >
             Enquire Now
             <ArrowUpRight size={17} />
           </button>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile menu button */}
           <button
             type="button"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
-            onClick={() => setIsOpen((previous) => !previous)}
+            onClick={() => setIsOpen((open) => !open)}
             className="flex h-11 w-11 shrink-0 touch-manipulation items-center justify-center rounded-xl border border-slate-200 text-slate-800 hover:bg-blue-50 lg:hidden"
           >
             {isOpen ? <X size={23} /> : <Menu size={23} />}
           </button>
         </div>
 
-        {/* Mobile navigation */}
+        {/* Mobile menu */}
         <AnimatePresence initial={false}>
           {isOpen && (
             <motion.div
-              id="mobile-navigation"
               key="mobile-navigation"
+              id="mobile-navigation"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.22 }}
+              transition={{ duration: 0.2 }}
               className="overflow-hidden lg:hidden"
             >
               <div className="mt-4 border-t border-slate-100 pb-2 pt-3">
@@ -136,9 +110,7 @@ export default function Navbar() {
                   <a
                     key={link.name}
                     href={link.href}
-                    onClick={(event) =>
-                      handleNavigation(event, link.href)
-                    }
+                    onClick={() => setIsOpen(false)}
                     className="block touch-manipulation rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-600"
                   >
                     {link.name}
@@ -151,7 +123,7 @@ export default function Navbar() {
                     setIsOpen(false);
                     openWhatsApp();
                   }}
-                  className="mt-3 flex w-full touch-manipulation items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3.5 text-sm font-bold text-white hover:bg-blue-700"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3.5 text-sm font-bold text-white hover:bg-blue-700"
                 >
                   Enquire on WhatsApp
                   <ArrowUpRight size={17} />
@@ -161,6 +133,6 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </nav>
-    </motion.header>
+    </header>
   );
 }
