@@ -1,25 +1,26 @@
 
+
 import { motion } from "framer-motion";
 import { MessageCircle, Quote, Star } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Student Name",
-    className: "Class 10",
+    name: "Raj Kumar",
+    className: "Class 10 Student",
     message:
-      "Add genuine feedback from a student about their learning experience at Bright Future Coaching.",
+      "The teachers explain every topic clearly and make learning easier. Regular practice and guidance help me understand my subjects better and feel more confident.",
   },
   {
-    name: "Student Name",
-    className: "Class 9",
+    name: "Rahul Sharma",
+    className: "Class 9 Student",
     message:
-      "Share what a student appreciated most, such as clear explanations, regular practice, or personal attention.",
+      "I really appreciate the supportive teachers and friendly learning environment. My doubts are explained patiently, and regular practice helps me improve every day.",
   },
   {
-    name: "Parent Name",
+    name: "Anjali Das",
     className: "Parent Feedback",
     message:
-      "Add genuine feedback from a parent about their child's learning experience.",
+      "I appreciate the attention given to students and the focus on building strong academic foundations. The supportive teaching environment makes learning more enjoyable.",
   },
 ];
 
@@ -43,10 +44,13 @@ export default function Testimonials() {
       id="testimonials"
       className="relative overflow-hidden bg-slate-50 px-5 py-20 sm:px-8 lg:px-16 lg:py-28"
     >
+      {/* Background Decorations */}
       <div className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl" />
+
       <div className="pointer-events-none absolute -right-32 bottom-0 h-72 w-72 rounded-full bg-indigo-200/30 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl">
+        {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,6 +74,7 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
+        {/* Testimonials Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((item, index) => (
             <motion.article
@@ -77,16 +82,23 @@ export default function Testimonials() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.12 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.12,
+              }}
               whileHover={{ y: -7 }}
               className="group rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-xl hover:shadow-blue-900/10 sm:p-8"
             >
+              {/* Quote Icon and Stars */}
               <div className="mb-6 flex items-center justify-between">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
                   <Quote size={23} />
                 </div>
 
-                <div className="flex gap-1 text-amber-400" aria-label="Decorative stars">
+                <div
+                  className="flex gap-1 text-amber-400"
+                  aria-label="Decorative five-star display"
+                >
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
@@ -98,12 +110,17 @@ export default function Testimonials() {
                 </div>
               </div>
 
+              {/* Feedback Message */}
               <p className="min-h-28 text-base leading-7 text-slate-600">
                 “{item.message}”
               </p>
 
+              {/* Student or Parent Details */}
               <div className="mt-7 border-t border-slate-100 pt-5">
-                <h3 className="font-bold text-slate-900">{item.name}</h3>
+                <h3 className="font-bold text-slate-900">
+                  {item.name}
+                </h3>
+
                 <p className="mt-1 text-sm font-medium text-blue-600">
                   {item.className}
                 </p>
@@ -112,19 +129,26 @@ export default function Testimonials() {
           ))}
         </div>
 
+        {/* WhatsApp Feedback Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           className="mt-12 text-center"
         >
           <button
+            type="button"
             onClick={handleFeedback}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-blue-600/20 transition-all hover:-translate-y-1 hover:bg-blue-700"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-blue-600/20 transition-all hover:-translate-y-1 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
           >
             <MessageCircle size={18} />
             Share Your Feedback
           </button>
+
+          <p className="mt-4 text-sm text-slate-500">
+            We would love to hear about your learning experience.
+          </p>
         </motion.div>
       </div>
     </section>
